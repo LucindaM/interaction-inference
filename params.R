@@ -3,7 +3,7 @@
 rmeasure <- "poisson_rmeasure"
 dmeasure <- "poisson_dmeasure"
 ####
-N <- 10000000
+N <- 20000000
 mu <- 0.02
 beta <- 70
 gamma <- 26
