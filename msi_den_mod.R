@@ -1,5 +1,5 @@
 
-require(pomp)
+library(pomp)
 
 modelStem <- "msi_den_mod"
 modelCfile <- paste(modelStem,".c",sep="")
@@ -41,13 +41,13 @@ make.pomp <- function(dt=0.001, lt=1000, smp=12, rmeasure, dmeasure,...) {
     paramnames = c('beta.sd','mu','beta','gamma','delta','theta','chi','omega','rho.1','rho.2'),
     log.params = c('beta.sd','mu','beta','gamma','delta','theta','chi','omega', paste(compnames,".0",sep=''),'N.0'),
     logit.params = c('rho.1','rho.2'),
-    initializer = function (params, t0, statenames, comp.names, ...) {
-      comp.ic.names <- paste(comp.names,".0",sep='')
-      states <- numeric(length(statenames))
-      names(states) <- statenames
+    initializer = function (params, t0, ...) {
+      comp.ic.names <- paste(compnames,".0",sep='')
+      states <- numeric(length(c(compnames,'N','W', 'cases1', 'cases2', 'cases3','cases4','casesp1','casesp2','casesp3','casesp4')))
+      names(states) <- c(compnames,'N','W', 'cases1', 'cases2', 'cases3','cases4','casesp1','casesp2','casesp3','casesp4')
       frac <- exp(params[comp.ic.names])
       states['N'] <- round(exp(params['N.0']))
-      states[comp.names] <- round(states['N']*frac/sum(frac))
+      states[compnames] <- round(states['N']*frac/sum(frac))
       states
     },
     transform.fn = function (params, log.params, logit.params, ...) {
@@ -61,11 +61,11 @@ make.pomp <- function(dt=0.001, lt=1000, smp=12, rmeasure, dmeasure,...) {
       logit <- function(p){log(p/(1-p))}
       x[logit.ind,] <- logit(x[logit.ind,])
       if (length(dx)>1) {
-              dim(x) <- dx
-      dimnames(x) <- nx
+        dim(x) <- dx
+        dimnames(x) <- nx
       } else {
-      dim(x) <- NULL
-      names(x) <- nx[[1]]
+        dim(x) <- NULL
+        names(x) <- nx[[1]]
       }
       x
     },
