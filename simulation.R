@@ -33,8 +33,6 @@ params <- c(
   rho.2=rho.2,
   N.0=N)
 
-casedata<-data.frame(time=seq(0,40,length=481),y1=NA, y2=NA,y3=NA,y4=NA,yp1=NA,yp2=NA,yp3=NA,yp4=NA)
-
 compnames <- array(NA, 80)
 for(j in 1:80) compnames[j] <- paste("X",j,sep='')
 compnames <- as.character(compnames)
