@@ -2,22 +2,9 @@
 source('params.R')
 load('init.rda')
 
-# dir with the model files
-dir.mod <- '~/DenSerIntInf/model/'
-
-# current dir
-dir.current <- getwd()
-
-# change dir to the dir with model
-setwd(dir.mod)
-
-datapath <- paste(dir.current,'/data',sep='')
-
 source('msi_den_mod.R')
 dyn.load(solib)
 
-# change dir to current
-setwd(dir.current)
 # set non initial cond params
 params <- c(
             beta.sd=beta.sd,
@@ -44,5 +31,3 @@ names(params)[-(1:lp)] <- icompnames
 params[-(1:lp)] <- as.numeric(init)
 
 msi.po <- make.pomp(dt=0.005,lt=40,smp=smp,rmeasure=rmeasure, dmeasure=dmeasure)
-
-null.params <- params 
