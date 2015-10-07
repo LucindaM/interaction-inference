@@ -8,10 +8,10 @@ source('filter.study.setup.R')
 fname <- 'fs.delta.chi.rda'
 
 # parameters
-npart <- 5000
+npart <- 20000
 nfil <- 5
-delta.set <- c(0.1, 0.5, 1, 2, 6, 12, 52, 365)
-chi.set <- c(0, 0.5, 0.8, 0.9, 0.95, 0.975, 0.99, 1, 1.01, 1.025, 1.05, 1.1, 1.2, 1.5, 2)
+delta.set <- c(2, 3, 6, 12, 18, 25, 52, 73, 122, 182, 243, 365)
+chi.set <- seq(0.95,1.1,length=10)
 
 ind <- 1
 
