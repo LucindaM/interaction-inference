@@ -12,13 +12,11 @@ rexe <- paste(R.home(),"bin/R",sep="/")
 pomp.inc <- system.file("include/pomp.h",package="pomp")
 pomp.lib <- system.file("libs/pomp.so",package="pomp")
 system(paste("cp",pomp.inc,".",sep=" "))
+system(paste("cp",pomp.lib,".",sep=" "))
 system(paste(rexe,"CMD SHLIB -o",solib,modelCfile,pomp.lib,sep=" "))
 system("rm pomp.h")
 
-datapath <- "../data"
-casedatafile <- "casedata.csv"
-readcasedata <- file.path(datapath,casedatafile)
-casedata <- read.csv(readcasedata, row=1)
+casedata <- read.csv("casedata.csv", row=1)
 
 if (!file.exists(solib))
   stop("file ",sQuote(solib)," not found")
